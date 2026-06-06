@@ -1,0 +1,33 @@
+# 排除 report 文件夹
+report/
+
+# Java 后端构建产物
+backend/target/
+*.class
+*.jar
+*.war
+
+# IDE 文件
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# Maven 缓存
+backend/.mvn/
+
+# 前端构建产物
+frontend/node_modules/
+frontend/dist/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 工具目录
+.codegraph/
+.reasonix/
+
+# 日志
+*.log
