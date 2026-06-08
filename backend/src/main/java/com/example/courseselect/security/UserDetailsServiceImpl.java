@@ -15,18 +15,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService { // 用户详情加载服务
 
-    private final UserMapper userMapper;
+        private final UserMapper userMapper; // 用户数据访问
 
     @Override
+        /** 根据用户名加载用户认证信息 */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("用户不存在");
+                User user = userMapper.findByUsername(username); // 从数据库查询用户
+                if (user == null) {
+                        throw new UsernameNotFoundException("用户不存在"); // 用户不存在
         }
 
-        SecurityUser securityUser = new SecurityUser();
+                // 构建 SecurityUser 对象，供 Spring Security 使用
         securityUser.setId(user.getId());
         securityUser.setUsername(user.getUsername());
         securityUser.setPassword(user.getPassword());

@@ -49,22 +49,24 @@ import type { Course } from '@/types'
 const courses = ref<Course[]>([])
 const loading = ref(false)
 
-onMounted(() => loadCourses())
+onMounted(() => loadCourses())  // 组件挂载后加载课程
 
+/** 获取所有课程列表 */
 async function loadCourses() {
   loading.value = true
   try {
-    const res = await getCourses({ page: 1, size: 999 })
-    courses.value = res.data.records
+    const res = await getCourses({ page: 1, size: 999 })  // 获取全部课程（不分页）
+    courses.value = res.data.records  // 保存课程数据
   } finally {
     loading.value = false
   }
 }
 
+/** 切换课程开放/关闭状态 */
 async function handleToggle(id: number) {
   try {
-    await ElMessageBox.confirm('确定要切换课程状态吗？', '提示', { type: 'warning' })
-    await toggleCourseStatus(id)
+    await ElMessageBox.confirm('确定要切换课程状态吗？', '提示', { type: 'warning' })  // 确认弹窗
+    await toggleCourseStatus(id)  // 调用切换状态接口
     ElMessage.success('操作成功')
     loadCourses()
   } catch { /* cancelled or error */ }

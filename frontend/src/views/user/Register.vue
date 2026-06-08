@@ -49,24 +49,27 @@ const router = useRouter()
 const loading = ref(false)
 const formRef = ref()
 
+// 注册表单数据
 const form = reactive({
-  username: '',
-  password: '',
-  confirmPassword: '',
+  username: '',  // 用户名
+  password: '',  // 密码
+  confirmPassword: '',  // 确认密码
   realName: '',
   studentNo: '',
   email: '',
   phone: '',
 })
 
+// 自定义校验：确认密码是否一致
 const validatePass2 = (_rule: any, value: string, callback: any) => {
-  if (value !== form.password) {
+  if (value !== form.password) {  // 两次密码不一致
     callback(new Error('两次输入密码不一致'))
   } else {
     callback()
   }
 }
 
+// 表单校验规则
 const rules = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -84,13 +87,14 @@ const rules = {
   studentNo: [{ required: true, message: '请输入学号', trigger: 'blur' }],
 }
 
+/** 处理注册：校验表单 -> 调用注册 API -> 跳转登录页 */
 async function handleRegister() {
-  const valid = await formRef.value?.validate().catch(() => false)
+  const valid = await formRef.value?.validate().catch(() => false)  // 校验表单
   if (!valid) return
 
   loading.value = true
   try {
-    await register({
+    await register({  // 调用注册接口
       username: form.username,
       password: form.password,
       realName: form.realName,

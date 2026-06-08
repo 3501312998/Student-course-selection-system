@@ -105,21 +105,23 @@ const courseForm = reactive({
   description: '',
 })
 
-onMounted(() => loadCourses())
+onMounted(() => loadCourses())  // 组件挂载后加载课程
 
+/** 加载教师自己的课程列表 */
 async function loadCourses() {
   loading.value = true
   try {
-    const res = await getTeacherCourses()
-    courses.value = res.data
+    const res = await getTeacherCourses()  // 获取教师课程
+    courses.value = res.data  // 保存课程数据
   } finally {
     loading.value = false
   }
 }
 
+/** 打开编辑课程对话框，预填课程信息 */
 function editCourse(course: Course) {
-  isEditing.value = true
-  editId.value = course.id
+  isEditing.value = true  // 设置为编辑模式
+  editId.value = course.id  // 记录编辑的课程 ID
   courseForm.courseName = course.courseName
   courseForm.courseCode = course.courseCode
   courseForm.credit = course.credit
@@ -131,6 +133,7 @@ function editCourse(course: Course) {
   showCreate.value = true
 }
 
+/** 重置表单为初始状态 */
 function resetForm() {
   isEditing.value = false
   editId.value = null
@@ -144,19 +147,20 @@ function resetForm() {
   courseForm.description = ''
 }
 
+/** 保存课程（创建或更新） */
 async function handleSave() {
-  if (!courseForm.courseName || !courseForm.courseCode) {
+  if (!courseForm.courseName || !courseForm.courseCode) {  // 校验必填字段
     ElMessage.warning('请填写课程名称和编号')
     return
   }
   saving.value = true
   try {
-    if (isEditing.value && editId.value) {
+    if (isEditing.value && editId.value) {  // 编辑模式
       // Use courseApi for update
-      await courseApi.updateCourse(editId.value, courseForm as any)
+      await courseApi.updateCourse(editId.value, courseForm as any)  // 调用更新接口
       ElMessage.success('更新成功')
-    } else {
-      await courseApi.createCourse(courseForm as any)
+    } else {  // 创建模式
+      await courseApi.createCourse(courseForm as any)  // 调用创建接口
       ElMessage.success('创建成功')
     }
     showCreate.value = false

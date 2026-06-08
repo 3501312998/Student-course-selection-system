@@ -63,28 +63,31 @@ import { getCourseDetail } from '@/api/course'
 const route = useRoute()
 const router = useRouter()
 
-const courseId = Number(route.params.id)
+const courseId = Number(route.params.id)  // 从路由参数获取课程 ID
 const courseName = ref('')
 const students = ref<any[]>([])
 const loading = ref(false)
 
-onMounted(async () => {
+onMounted(async () => {  // 组件挂载后加载课程信息和学生名单
   await loadCourseInfo()
   await loadStudents()
 })
 
+/** 获取课程名称 */
 async function loadCourseInfo() {
   try {
-    const res = await getCourseDetail(courseId)
-    courseName.value = res.data.courseName
+    const res = await getCourseDetail(courseId)  // 调用课程详情接口
+    courseName.value = res.data.courseName  // 保存课程名称
   } catch { /* handled */ }
 }
 
+/** 获取选课学生名单 */
 async function loadStudents() {
   loading.value = true
   try {
-    const res = await getCourseStudents(courseId)
+    const res = await getCourseStudents(courseId)  // 调用学生名单接口
     students.value = (res.data || []).map((s: any) => ({
+      // 初始化临时成绩字段，已存在的预填到输入框
       ...s,
       scoreTemp: undefined,
     }))
@@ -93,9 +96,10 @@ async function loadStudents() {
   }
 }
 
+/** 保存单个学生成绩 */
 async function handleSave(row: any) {
   try {
-    await setScore({
+    await setScore({  // 调用成绩录入接口
       studentId: row.studentId,
       courseId,
       score: row.scoreTemp,

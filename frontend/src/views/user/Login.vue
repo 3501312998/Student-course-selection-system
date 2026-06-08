@@ -43,24 +43,28 @@ const userStore = useUserStore()
 const loading = ref(false)
 const formRef = ref()
 
+// 登录表单数据
 const form = reactive({
-  username: '',
-  password: '',
+  username: '',  // 用户名
+  password: '',  // 密码
 })
 
+// 表单校验规则
 const rules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],  // 用户名必填
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],  // 密码必填
 }
 
+/** 处理登录：校验表单 -> 调用登录 API -> 保存用户信息 -> 跳转首页 */
 async function handleLogin() {
-  const valid = await formRef.value?.validate().catch(() => false)
-  if (!valid) return
+  const valid = await formRef.value?.validate().catch(() => false)  // 校验表单
+  if (!valid) return  // 校验不通过则停止
 
   loading.value = true
   try {
-    const res = await login(form)
+    const res = await login(form)  // 调用登录接口
     const { token, userId, username, realName, role } = res.data
+    // 保存 Token 和用户信息到 Store 和本地存储
     userStore.loginSuccess({
       token,
       user: { id: userId, username, realName, role, status: 1 } as any,

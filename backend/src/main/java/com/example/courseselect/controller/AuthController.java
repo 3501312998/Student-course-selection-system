@@ -23,32 +23,37 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
+        private final UserService userService; // 用户服务
 
     @PostMapping("/login")
+        /** 用户登录 */
     public Result<LoginResponse> login(@Valid @RequestBody LoginDTO loginDTO) {
-        return Result.success(userService.login(loginDTO));
+                return Result.success(userService.login(loginDTO)); // 返回令牌和用户信息
     }
 
     @PostMapping("/register")
+        /** 用户注册 */
     public Result<Void> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        userService.register(registerDTO);
-        return Result.success("注册成功", null);
+                userService.register(registerDTO);
+                return Result.success("注册成功", null);
     }
 
     @GetMapping("/me")
+        /** 获取当前登录用户信息 */
     public Result<User> getCurrentUser() {
         return Result.success(userService.getCurrentUser());
     }
 
     @PutMapping("/profile")
+        /** 更新个人信息 */
     public Result<Void> updateProfile(@Valid @RequestBody UpdateUserDTO updateUserDTO) {
-        User user = userService.getCurrentUser();
+                User user = userService.getCurrentUser(); // 获取当前登录用户
         userService.updateProfile(user.getId(), updateUserDTO);
         return Result.success("更新成功", null);
     }
 
     @PutMapping("/password")
+        /** 修改密码 */
     public Result<Void> updatePassword(@RequestBody Map<String, String> body) {
         User user = userService.getCurrentUser();
         userService.updatePassword(user.getId(), body.get("oldPassword"), body.get("newPassword"));

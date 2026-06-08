@@ -178,44 +178,36 @@ pnpm run dev
 
 ---
 
-## 数据库设计
+## 状态码含义
 
-### t_user — 用户表
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键 |
-| username | VARCHAR(50) | 用户名（唯一） |
-| password | VARCHAR(255) | BCrypt 加密密码 |
-| real_name | VARCHAR(50) | 真实姓名 |
-| email | VARCHAR(100) | 邮箱 |
-| phone | VARCHAR(20) | 手机号 |
-| role | VARCHAR(20) | ADMIN / TEACHER / STUDENT |
-| student_no | VARCHAR(50) | 学号/工号 |
-| status | TINYINT | 1启用 0禁用 |
-| deleted | TINYINT | 逻辑删除标识 |
+### HTTP 状态码
 
-### t_course — 课程表
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键 |
-| course_name | VARCHAR(100) | 课程名称 |
-| course_code | VARCHAR(50) | 课程编号 |
-| teacher_id | BIGINT | 授课教师 ID |
-| credit | TINYINT | 学分 |
-| max_capacity | INT | 最大容量 |
-| current_count | INT | 已选人数 |
-| semester | VARCHAR(50) | 学期 |
-| schedule | VARCHAR(100) | 上课时间 |
-| classroom | VARCHAR(100) | 上课地点 |
-| status | TINYINT | 1开放 0关闭 |
+| 状态码 | 含义 | 说明 |
+|--------|------|------|
+| `200` | 操作成功 | 请求正常处理完毕 |
+| `201` | 创建成功 | 资源创建成功 |
+| `400` | 请求参数错误 | 参数校验失败或请求体格式错误 |
+| `401` | 未登录或 Token 已过期 | 需重新登录获取令牌 |
+| `403` | 无权限访问 | 当前角色无权执行该操作 |
+| `404` | 资源不存在 | 请求的资源未找到 |
+| `409` | 资源冲突 | 如用户名/学号已存在 |
+| `500` | 服务器内部错误 | 未预期的系统异常 |
 
-### t_course_selection — 选课记录表
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| id | BIGINT | 主键 |
-| student_id | BIGINT | 学生 ID |
-| course_id | BIGINT | 课程 ID |
-| status | TINYINT | 1在学习 2已退课 3已结课 |
-| score | DECIMAL(5,2) | 成绩 |
-| select_time | DATETIME | 选课时间 |
-| deleted | TINYINT | 逻辑删除标识 |
+### 业务状态码（`code` 字段）
+
+| 状态码 | 含义 | 触发场景 |
+|--------|------|----------|
+| `4001` | 课程已满员 | 选课时课程容量已满 |
+| `4002` | 选课时间冲突 | 所选课程与已选课程上课时间重叠 |
+| `4003` | 已选过此课程 | 重复选课 |
+| `4004` | 密码错误 | 登录或修改密码时原密码不正确 |
+| `4005` | 账号已被禁用 | 管理员已禁用该账号 |
+
+### 选课记录状态
+
+| 状态值 | 含义 |
+|--------|------|
+| `1` | 在学习 |
+| `2` | 已退课 |
+| `3` | 已结课（已有成绩） |
+

@@ -13,13 +13,13 @@ import com.example.courseselect.entity.User;
 
 import java.util.List;
 
-public interface UserService {
-    LoginResponse login(LoginDTO loginDTO);
-    void register(RegisterDTO registerDTO);
-    User getById(Long id);
-    void updateProfile(Long userId, UpdateUserDTO updateUserDTO);
-    void updatePassword(Long userId, String oldPassword, String newPassword);
-    List<User> listUsers(String role);
-    void toggleUserStatus(Long userId);
-    User getCurrentUser();
+public interface UserService { // 用户服务接口
+        LoginResponse login(LoginDTO loginDTO); // 登录
+        void register(RegisterDTO registerDTO); // 注册
+        User getById(Long id); // 根据 ID 查询用户
+        void updateProfile(Long userId, UpdateUserDTO updateUserDTO); // 更新个人信息
+        void updatePassword(Long userId, String oldPassword, String newPassword); // 修改密码
+        List<User> listUsers(String role); // 查询用户列表（可按角色筛选）
+        void toggleUserStatus(Long userId); // 切换用户启用/禁用状态
+        User getCurrentUser(); // 获取当前登录用户的信息
 }

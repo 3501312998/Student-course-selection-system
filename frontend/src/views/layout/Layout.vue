@@ -91,14 +91,17 @@ const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
+// 当前激活的菜单项，由路由路径决定
 const activeMenu = computed(() => route.path)
 
+/** 跳转到个人信息页 */
 function goProfile() {
-  router.push('/profile')
+  router.push('/profile')  // 跳转
 }
 
+/** 退出登录：弹出确认框 -> 清除认证信息 -> 跳转登录页 */
 function handleLogout() {
-  ElMessageBox.confirm('确定要退出登录吗？', '提示', {
+  ElMessageBox.confirm('确定要退出登录吗？', '提示', {  // 确认弹窗
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',

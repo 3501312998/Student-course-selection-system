@@ -39,22 +39,24 @@ const router = useRouter()
 const schedule = ref<any[]>([])
 const loading = ref(false)
 
-onMounted(() => loadSchedule())
+onMounted(() => loadSchedule())  // 组件挂载后加载课表
 
+/** 获取学生课表数据 */
 async function loadSchedule() {
   loading.value = true
   try {
-    const res = await getSchedule()
-    schedule.value = res.data
+    const res = await getSchedule()  // 调用课表接口
+    schedule.value = res.data  // 保存课表数据
   } finally {
     loading.value = false
   }
 }
 
+/** 退课：确认弹窗 -> 调用退课接口 -> 刷新课表 */
 async function handleDrop(courseId: number) {
   try {
-    await ElMessageBox.confirm('确定要退课吗？', '提示', { type: 'warning' })
-    await dropCourse(courseId)
+    await ElMessageBox.confirm('确定要退课吗？', '提示', { type: 'warning' })  // 确认弹窗
+    await dropCourse(courseId)  // 调用退课接口
     ElMessage.success('退课成功')
     loadSchedule()
   } catch { /* cancelled or error */ }

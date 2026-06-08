@@ -62,20 +62,22 @@ import { updateProfile, updatePassword } from '@/api/user'
 
 const userStore = useUserStore()
 
+// 个人信息表单
 const form = reactive({
-  realName: '',
-  email: '',
-  phone: '',
-  gender: 0,
+  realName: '',  // 真实姓名
+  email: '',  // 邮箱
+  phone: '',  // 手机号
+  gender: 0,  // 性别
 })
 
+// 修改密码表单
 const pwdForm = reactive({
-  oldPassword: '',
-  newPassword: '',
+  oldPassword: '',  // 原密码
+  newPassword: '',  // 新密码
 })
 
-onMounted(() => {
-  if (userStore.user) {
+onMounted(() => {  // 组件挂载后填充当前用户信息
+  if (userStore.user) {  // 从 Store 获取用户数据
     form.realName = userStore.user.realName || ''
     form.email = userStore.user.email || ''
     form.phone = userStore.user.phone || ''
@@ -83,6 +85,7 @@ onMounted(() => {
   }
 })
 
+/** 保存个人信息 */
 async function handleUpdate() {
   try {
     await updateProfile(form)
@@ -91,6 +94,7 @@ async function handleUpdate() {
   } catch { /* handled by interceptor */ }
 }
 
+/** 修改密码 */
 async function handlePassword() {
   if (!pwdForm.oldPassword || !pwdForm.newPassword) {
     ElMessage.warning('请填写完整')

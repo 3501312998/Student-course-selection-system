@@ -24,27 +24,28 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class DashboardController {
 
-    private final UserMapper userMapper;
-    private final CourseMapper courseMapper;
-    private final CourseSelectionMapper courseSelectionMapper;
+        private final UserMapper userMapper; // 用户数据统计
+        private final CourseMapper courseMapper; // 课程数据统计
+        private final CourseSelectionMapper courseSelectionMapper; // 选课记录统计
 
     @GetMapping("/stats")
+        /** 返回首页仪表盘统计数据，按角色区分 */
     public Result<Map<String, Object>> getStats(Authentication authentication) {
         SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
         Map<String, Object> stats = new HashMap<>();
 
-        switch (securityUser.getRole()) {
+                // 根据角色返回不同的统计维度
             case "STUDENT":
                 Long studentId = securityUser.getId();
-                stats.put("selectedCourseCount", courseSelectionMapper.countSelectedByStudentId(studentId));
-                stats.put("totalCredits", courseSelectionMapper.sumCreditsByStudentId(studentId));
-                stats.put("totalCourses", courseMapper.countAll());
+                                stats.put("selectedCourseCount", courseSelectionMapper.countSelectedByStudentId(studentId)); // 已选课程数
+                                stats.put("totalCredits", courseSelectionMapper.sumCreditsByStudentId(studentId)); // 总学分
+                                stats.put("totalCourses", courseMapper.countAll()); // 系统课程总数
                 break;
             case "TEACHER":
                 Long teacherId = securityUser.getId();
-                stats.put("courseCount", courseMapper.countByTeacherId(teacherId));
-                stats.put("studentCount", courseSelectionMapper.countStudentsByTeacherId(teacherId));
-                stats.put("ungradedCount", courseSelectionMapper.countUngradedByTeacherId(teacherId));
+                                stats.put("courseCount", courseMapper.countByTeacherId(teacherId)); // 授课课程数
+                                stats.put("studentCount", courseSelectionMapper.countStudentsByTeacherId(teacherId)); // 选课学生数
+                                stats.put("ungradedCount", courseSelectionMapper.countUngradedByTeacherId(teacherId)); // 待录入成绩数
                 break;
             case "ADMIN":
                 stats.put("totalUsers", userMapper.countAll());

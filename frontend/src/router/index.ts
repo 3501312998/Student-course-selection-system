@@ -3,32 +3,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getToken } from '@/utils/storage'
 
+// 创建 Vue Router 实例，使用 HTML5 History 模式
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [
+  history: createWebHistory(),  // HTML5 History 模式，无 # 号
+  routes: [  // 路由表
     {
-      path: '/login',
+      path: '/login',  // 登录页
       name: 'Login',
       component: () => import('@/views/user/Login.vue'),
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: false },  // 无需登录即可访问
     },
     {
-      path: '/register',
+      path: '/register',  // 注册页
       name: 'Register',
       component: () => import('@/views/user/Register.vue'),
       meta: { requiresAuth: false },
     },
     {
-      path: '/',
+      path: '/',  // 主布局，包裹所有需登录的页面
       component: () => import('@/views/layout/Layout.vue'),
-      meta: { requiresAuth: true },
-      redirect: '/home',
-      children: [
+      meta: { requiresAuth: true },  // 需要登录才能访问
+      redirect: '/home',  // 默认重定向到首页
+      children: [  // 子路由，在 Layout 的 <router-view> 中渲染
         {
           path: 'home',
           name: 'Home',
           component: () => import('@/views/layout/Home.vue'),
-          meta: { title: '首页' },
+          meta: { title: '首页' },  // 页面标题
         },
         {
           path: 'courses',
@@ -46,7 +47,7 @@ const router = createRouter({
           path: 'schedule',
           name: 'Schedule',
           component: () => import('@/views/course/Schedule.vue'),
-          meta: { title: '我的课表', roles: ['STUDENT'] },
+          meta: { title: '我的课表', roles: ['STUDENT'] },  // 仅学生可见
         },
         {
           path: 'grades',
@@ -58,7 +59,7 @@ const router = createRouter({
           path: 'teacher-courses',
           name: 'TeacherCourses',
           component: () => import('@/views/course/TeacherCourses.vue'),
-          meta: { title: '我的课程', roles: ['TEACHER'] },
+          meta: { title: '我的课程', roles: ['TEACHER'] },  // 仅教师可见
         },
         {
           path: 'teacher-courses/:id/students',
@@ -76,7 +77,7 @@ const router = createRouter({
           path: 'admin/users',
           name: 'AdminUsers',
           component: () => import('@/views/admin/UserManage.vue'),
-          meta: { title: '用户管理', roles: ['ADMIN'] },
+          meta: { title: '用户管理', roles: ['ADMIN'] },  // 仅管理员可见
         },
         {
           path: 'admin/courses',
@@ -95,25 +96,25 @@ const router = createRouter({
   ],
 })
 
-// 404 通配路由
-router.addRoute({
-  path: '/:pathMatch(.*)*',
+// 404 通配路由：匹配所有未定义路径
+router.addRoute({  // 动态添加 404 路由
+  path: '/:pathMatch(.*)*',  // 通配所有未匹配路径
   name: 'NotFound',
   component: () => import('@/views/layout/NotFound.vue'),
   meta: { requiresAuth: false },
 })
 
-// 路由守卫
-router.beforeEach((to, _from, next) => {
-  const token = getToken()
+// 路由守卫：登录状态检查，未登录跳转登录页
+router.beforeEach((to, _from, next) => {  // 全局前置守卫
+  const token = getToken()  // 从本地存储获取 Token
 
-  if (to.meta.requiresAuth !== false && !token) {
-    next('/login')
+  if (to.meta.requiresAuth !== false && !token) {  // 需登录但无 Token
+    next('/login')  // 跳转到登录页
     return
   }
 
-  if ((to.path === '/login' || to.path === '/register') && token) {
-    next('/home')
+  if ((to.path === '/login' || to.path === '/register') && token) {  // 已登录时访问登录/注册页
+    next('/home')  // 重定向到首页
     return
   }
 

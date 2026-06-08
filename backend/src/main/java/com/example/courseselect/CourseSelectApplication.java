@@ -9,8 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CourseSelectApplication {
+public class CourseSelectApplication { // 应用主类
     public static void main(String[] args) {
-        SpringApplication.run(CourseSelectApplication.class, args);
+                SpringApplication.run(CourseSelectApplication.class, args); // 启动 Spring Boot 容器
     }
 }

@@ -42,13 +42,14 @@ import { getGrades } from '@/api/selection'
 const grades = ref<any[]>([])
 const loading = ref(false)
 
-onMounted(() => loadGrades())
+onMounted(() => loadGrades())  // 组件挂载后加载成绩
 
+/** 获取学生成绩列表 */
 async function loadGrades() {
   loading.value = true
   try {
-    const res = await getGrades()
-    grades.value = res.data
+    const res = await getGrades()  // 调用成绩接口
+    grades.value = res.data  // 保存成绩数据
   } finally {
     loading.value = false
   }

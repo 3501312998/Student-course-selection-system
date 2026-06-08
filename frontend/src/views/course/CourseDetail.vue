@@ -62,35 +62,37 @@ const userStore = useUserStore()
 
 const course = ref<Course | null>(null)
 const loading = ref(false)
-const isSelected = ref(false)
+const isSelected = ref(false)  // 当前课程是否已被该学生选中
 
-onMounted(async () => {
+onMounted(async () => {  // 组件挂载后加载课程详情
   loading.value = true
   try {
-    const res = await getCourseDetail(Number(route.params.id))
-    course.value = res.data
+    const res = await getCourseDetail(Number(route.params.id))  // 根据路由参数获取课程详情
+    course.value = res.data  // 保存课程数据
   } finally {
     loading.value = false
   }
   if (userStore.isStudent) {
-    try {
-      const myRes = await getMyCourses()
+    try {  // 学生额外检查是否已选该课程
+      const myRes = await getMyCourses()  // 获取已选课程
       const list: any[] = myRes.data || []
-      isSelected.value = list.some((c: any) => c.id === Number(route.params.id))
+      isSelected.value = list.some((c: any) => c.id === Number(route.params.id))  // 判断当前课程是否在已选列表中
     } catch { /* handled */ }
   }
 })
 
+/** 选课 */
 async function handleSelect() {
   try {
-    await selectCourse(course.value!.id)
+    await selectCourse(course.value!.id)  // 调用选课接口
     ElMessage.success('选课成功')
   } catch { /* handled */ }
 }
 
+/** 退课 */
 async function handleDrop() {
   try {
-    await dropCourse(course.value!.id)
+    await dropCourse(course.value!.id)  // 调用退课接口
     ElMessage.success('退课成功')
   } catch { /* handled */ }
 }

@@ -20,21 +20,24 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final UserService userService;
-    private final CourseSelectionService courseSelectionService;
+        private final UserService userService; // 用户服务
+        private final CourseSelectionService courseSelectionService; // 选课服务
 
     @GetMapping("/users")
+        /** 用户列表（可选按角色筛选） */
     public Result<List<User>> listUsers(@RequestParam(required = false) String role) {
         return Result.success(userService.listUsers(role));
     }
 
     @PutMapping("/users/{id}/toggle-status")
+        /** 启用/禁用用户 */
     public Result<Void> toggleUserStatus(@PathVariable Long id) {
         userService.toggleUserStatus(id);
         return Result.success("操作成功", null);
     }
 
     @GetMapping("/courses/{courseId}/students")
+        /** 查询某课程所有学生 */
     public Result<List<Map<String, Object>>> getCourseStudents(@PathVariable Long courseId) {
         return Result.success(courseSelectionService.getCourseStudents(courseId));
     }

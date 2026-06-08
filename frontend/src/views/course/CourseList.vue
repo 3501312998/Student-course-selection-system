@@ -89,8 +89,9 @@ const total = ref(0)
 const keyword = ref('')
 const selectedCourseIds = ref<Set<number>>(new Set())
 
+/** 判断某课程是否已被当前学生选中 */
 function isSelected(courseId: number) {
-  return selectedCourseIds.value.has(courseId)
+  return selectedCourseIds.value.has(courseId)  // 在已选集合中查找
 }
 
 onMounted(async () => {
@@ -98,31 +99,34 @@ onMounted(async () => {
   await loadCourses()
 })
 
+/** 加载学生已选课程 ID 列表，用于标识已选课程 */
 async function loadSelectedIds() {
   if (!userStore.isStudent) return
   try {
-    const res = await getMyCourses()
+    const res = await getMyCourses()  // 获取我的课程列表
     const list: any[] = res.data || []
-    selectedCourseIds.value = new Set(list.map((c: any) => c.id))
+    selectedCourseIds.value = new Set(list.map((c: any) => c.id))  // 提取 ID 存入 Set
   } catch { /* handled */ }
 }
 
+/** 加载课程分页列表 */
 async function loadCourses() {
   loading.value = true
   try {
-    const res = await getCourses({ page: page.value, size: size.value, keyword: keyword.value || undefined })
-    courses.value = res.data.records
-    total.value = res.data.total
+    const res = await getCourses({ page: page.value, size: size.value, keyword: keyword.value || undefined })  // 分页查询
+    courses.value = res.data.records  // 课程列表数据
+    total.value = res.data.total  // 总记录数
   } finally {
     loading.value = false
   }
 }
 
+/** 选课操作 */
 async function handleSelect(courseId: number) {
   try {
-    await selectCourse(courseId)
-    ElMessage.success('选课成功')
-    loadCourses()
+    await selectCourse(courseId)  // 调用选课接口
+    ElMessage.success('选课成功')  // 成功提示
+    loadCourses()  // 刷新列表
   } catch { /* handled by interceptor */ }
 }
 </script>

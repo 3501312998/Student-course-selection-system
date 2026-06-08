@@ -8,15 +8,15 @@ package com.example.courseselect.dto;
 import lombok.Data;
 
 @Data
-public class LoginResponse {
-    private String token;
-    private String tokenType = "Bearer";
-    private Long userId;
-    private String username;
-    private String realName;
-    private String role;
+public class LoginResponse { // 登录响应参数
+        private String token;        // JWT 令牌
+        private String tokenType = "Bearer"; // 令牌类型
+        private Long userId;         // 用户 ID
+        private String username;     // 用户名
+        private String realName;     // 真实姓名
+        private String role;         // 角色
 
-    public LoginResponse(String token, Long userId, String username, String realName, String role) {
+        public LoginResponse(String token, Long userId, String username, String realName, String role) { // 全参构造
         this.token = token;
         this.userId = userId;
         this.username = username;

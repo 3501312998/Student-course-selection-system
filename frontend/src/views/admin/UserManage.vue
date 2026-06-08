@@ -61,22 +61,24 @@ const users = ref<UserInfo[]>([])
 const loading = ref(false)
 const roleFilter = ref('')
 
-onMounted(() => loadUsers())
+onMounted(() => loadUsers())  // 组件挂载后加载用户
 
+/** 获取用户列表（可筛选角色） */
 async function loadUsers() {
   loading.value = true
   try {
-    const res = await getUsers(roleFilter.value || undefined)
-    users.value = res.data
+    const res = await getUsers(roleFilter.value || undefined)  // 调用用户列表接口
+    users.value = res.data  // 保存用户数据
   } finally {
     loading.value = false
   }
 }
 
+/** 切换用户启用/禁用状态 */
 async function handleToggle(id: number) {
   try {
-    await ElMessageBox.confirm('确定要切换用户状态吗？', '提示', { type: 'warning' })
-    await toggleUserStatus(id)
+    await ElMessageBox.confirm('确定要切换用户状态吗？', '提示', { type: 'warning' })  // 确认弹窗
+    await toggleUserStatus(id)  // 调用切换状态接口
     ElMessage.success('操作成功')
     loadUsers()
   } catch { /* cancelled or error */ }

@@ -124,6 +124,7 @@ import type { Course } from '@/types'
 
 const courses = ref<Course[]>([])
 const selectedCourseId = ref<number | null>(null)
+// 当前选中的课程对象
 const selectedCourse = computed(() =>
   courses.value.find((c) => c.id === selectedCourseId.value)
 )
@@ -132,23 +133,25 @@ const loading = ref(false)
 const batchSaving = ref(false)
 
 // 统计
+// 统计信息：总人数、已录人数、平均分
 const stats = computed(() => {
-  const total = students.value.length
-  const scored = students.value.filter((s) => s.score !== null && s.score !== undefined).length
+  const total = students.value.length  // 选课总人数
+  const scored = students.value.filter((s) => s.score !== null && s.score !== undefined).length  // 已录成绩人数
   const scores = students.value
     .filter((s) => s.score !== null && s.score !== undefined)
     .map((s) => Number(s.score))
-  const avg = scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : null
+  const avg = scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : null  // 计算平均分
   return { total, scored, avg }
 })
 
-onMounted(async () => {
+onMounted(async () => {  // 组件挂载后加载教师课程列表
   try {
-    const res = await getTeacherCourses()
+    const res = await getTeacherCourses()  // 获取教师所授课程
     courses.value = res.data || []
   } catch { /* handled */ }
 })
 
+/** 切换课程时重新加载学生名单 */
 async function onCourseChange() {
   if (!selectedCourseId.value) {
     students.value = []
@@ -170,13 +173,14 @@ async function loadStudents() {
   }
 }
 
+/** 保存单行成绩 */
 async function handleSave(row: any) {
   if (row.scoreTemp === undefined || row.scoreTemp === null) {
     ElMessage.warning('请输入成绩')
     return
   }
   try {
-    await setScore({
+    await setScore({  // 调用成绩接口
       studentId: row.studentId,
       courseId: selectedCourseId.value!,
       score: row.scoreTemp,
@@ -186,19 +190,20 @@ async function handleSave(row: any) {
   } catch { /* handled */ }
 }
 
+/** 批量保存所有已输入的成绩 */
 async function handleBatchSave() {
-  const toSave = students.value.filter(
+  const toSave = students.value.filter(  // 过滤有输入值的行
     (s) => s.scoreTemp !== undefined && s.scoreTemp !== null && s.scoreTemp !== ''
   )
   if (toSave.length === 0) {
     ElMessage.warning('没有需要保存的成绩')
     return
   }
-  batchSaving.value = true
+  batchSaving.value = true  // 显示批量保存加载状态
   let success = 0
   for (const row of toSave) {
     try {
-      await setScore({
+      await setScore({  // 逐条调用成绩接口
         studentId: row.studentId,
         courseId: selectedCourseId.value!,
         score: row.scoreTemp,
@@ -213,8 +218,9 @@ async function handleBatchSave() {
   ElMessage.success(`成功保存 ${success}/${toSave.length} 条成绩`)
 }
 
+/** 重置所有输入框为当前数据库中的值 */
 function resetAllScores() {
-  students.value.forEach((s) => {
+  students.value.forEach((s) => {  // 遍历学生列表
     s.scoreTemp = s.score
   })
   ElMessage.info('已重置')

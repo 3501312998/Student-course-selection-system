@@ -17,32 +17,32 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("t_course")
+@TableName("t_course") // 课程表
 public class Course {
-    @TableId(type = IdType.AUTO)
-    private Long id;
+        @TableId(type = IdType.AUTO) // 自增主键
+        private Long id;                   // 课程 ID
 
-    private String courseName;
+        private String courseName;          // 课程名称
 
-    private String courseCode;
+        private String courseCode;          // 课程编号（唯一）
 
-    private Long teacherId;
+        private Long teacherId;             // 授课教师 ID
 
-    private Integer credit;
+        private Integer credit;             // 学分
 
-    private Integer maxCapacity;
+        private Integer maxCapacity;        // 最大容量
 
-    private Integer currentCount;
+        private Integer currentCount;       // 已选人数
 
-    private String semester;
+        private String semester;            // 学期
 
-    private String schedule;
+        private String schedule;            // 上课时间
 
-    private String classroom;
+        private String classroom;           // 上课地点
 
-    private String description;
+        private String description;         // 课程描述
 
-    private Integer status;
+        private Integer status;             // 状态: 1开放 0关闭
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

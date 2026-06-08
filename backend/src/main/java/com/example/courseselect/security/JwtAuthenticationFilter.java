@@ -21,20 +21,21 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter { // JWT 认证过滤器
 
-    private final JwtTokenProvider jwtTokenProvider;
-    private final UserDetailsServiceImpl userDetailsService;
+        private final JwtTokenProvider jwtTokenProvider; // JWT 工具类
+        private final UserDetailsServiceImpl userDetailsService; // 用户详情服务
 
     @Override
+        /** 每次请求执行：从请求头提取 Token 并设置认证信息 */
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        String token = getTokenFromRequest(request);
+                String token = getTokenFromRequest(request); // 从请求头提取 Token
 
-        if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
-            String username = jwtTokenProvider.getUsernameFromToken(token);
-            SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(username);
+                // 如果 Token 存在且有效，设置认证上下文
+                        String username = jwtTokenProvider.getUsernameFromToken(token); // 从 Token 解析用户名
+                        SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(username); // 加载用户信息
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());

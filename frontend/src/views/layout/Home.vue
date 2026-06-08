@@ -197,35 +197,38 @@ const roleTagType = computed(() => ({ ADMIN: 'danger', TEACHER: 'warning', STUDE
 const roleColor = computed(() => ({ ADMIN: '#f56c6c', TEACHER: '#e6a23c', STUDENT: '#409eff' }[userStore.role] || '#909399'))
 const roleAvatarText = computed(() => ({ ADMIN: '管', TEACHER: '教', STUDENT: '学' }[userStore.role] || '?'))
 
+// 根据当前时间生成时段问候语
 const adminTitle = computed(() => {
   const name = userStore.user?.realName || userStore.user?.username || ''
   const hour = new Date().getHours()
-  const greeting = hour < 6 ? '夜深了' : hour < 12 ? '上午好' : hour < 14 ? '中午好' : hour < 18 ? '下午好' : '晚上好'
+  const greeting = hour < 6 ? '夜深了' : hour < 12 ? '上午好' : hour < 14 ? '中午好' : hour < 18 ? '下午好' : '晚上好'  // 时段判断
   return `${greeting}，${name}`
 })
 
+// 根据角色生成欢迎语
 const welcomeMessage = computed(() => {
-  if (userStore.isStudent) return '浏览课程、查看课表、查询成绩，轻松管理学习计划。'
-  if (userStore.isTeacher) return '管理课程、学生名单、录入成绩，教学管理一站式。'
-  if (userStore.isAdmin) return '管理系统用户、监控课程运行、维护系统数据。'
+  if (userStore.isStudent) return '浏览课程、查看课表、查询成绩，轻松管理学习计划。'  // 学生欢迎语
+  if (userStore.isTeacher) return '管理课程、学生名单、录入成绩，教学管理一站式。'  // 教师欢迎语
+  if (userStore.isAdmin) return '管理系统用户、监控课程运行、维护系统数据。'  // 管理员欢迎语
   return '欢迎使用学生选课系统。'
 })
 
 const stats = ref<Record<string, number>>({})
 
+// 按角色生成统计卡片数据
 const statCards = computed(() => {
   const base = { path: '' } as any
-  if (userStore.isStudent) return [
+  if (userStore.isStudent) return [  // 学生统计卡片
     { label: '已选课程', value: stats.value.selectedCourseCount ?? '0', icon: 'Clock', color: '#409eff', path: '/schedule' },
     { label: '总学分', value: stats.value.totalCredits ?? '0', icon: 'Reading', color: '#67c23a' },
     { label: '可选课程', value: stats.value.totalCourses ?? '0', icon: 'Document', color: '#e6a23c', path: '/courses' },
   ].map(i => ({ ...base, ...i }))
-  if (userStore.isTeacher) return [
+  if (userStore.isTeacher) return [  // 教师统计卡片
     { label: '授课课程', value: stats.value.courseCount ?? '0', icon: 'Edit', color: '#409eff', path: '/teacher-courses' },
     { label: '选课学生', value: stats.value.studentCount ?? '0', icon: 'UserFilled', color: '#67c23a' },
     { label: '待录成绩', value: stats.value.ungradedCount ?? '0', icon: 'Warning', color: '#e6a23c', path: '/teacher/grades' },
   ].map(i => ({ ...base, ...i }))
-  if (userStore.isAdmin) return [
+  if (userStore.isAdmin) return [  // 管理员统计卡片
     { label: '用户', value: stats.value.totalUsers ?? '0', icon: 'User', color: '#409eff', path: '/admin/users' },
     { label: '课程', value: stats.value.totalCourses ?? '0', icon: 'Document', color: '#67c23a' },
     { label: '选课记录', value: stats.value.totalSelections ?? '0', icon: 'DataBoard', color: '#e6a23c' },
@@ -243,25 +246,26 @@ const allFeatures = [
   { title: '成绩管理', icon: 'Edit', path: '/teacher/grades', color: '#f56c6c', roles: ['TEACHER'] },
 ]
 
+// 按角色筛选可用的快捷功能
 const features = computed(() =>
-  allFeatures.filter((item) => item.roles.includes(userStore.role))
+  allFeatures.filter((item) => item.roles.includes(userStore.role))  // 过滤当前角色可见的功能
 )
 
 const recentList = ref<any[]>([])
 const recentTitle = ref('')
 
-onMounted(async () => {
+onMounted(async () => {  // 组件挂载后加载数据和统计
   try {
-    const res = await getDashboardStats()
+    const res = await getDashboardStats()  // 获取仪表盘统计数据
     stats.value = res.data as Record<string, number>
   } catch { /* handled */ }
   try {
-    if (userStore.isStudent) {
-      const res = await getSchedule()
+    if (userStore.isStudent) {  // 学生加载课表
+      const res = await getSchedule()  // 获取课表
       recentList.value = (res.data || []).slice(0, 5)
       recentTitle.value = '我的课表'
-    } else if (userStore.isTeacher) {
-      const res = await getTeacherCourses()
+    } else if (userStore.isTeacher) {  // 教师加载课程
+      const res = await getTeacherCourses()  // 获取课程列表
       recentList.value = (res.data || []).slice(0, 5).map((c: Course) => ({ ...c, studentCount: c.currentCount }))
       recentTitle.value = '我的课程'
     }

@@ -10,26 +10,26 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CourseDTO {
+public class CourseDTO { // 课程传输对象
     @NotBlank(message = "课程名称不能为空")
-    private String courseName;
+        private String courseName;   // 课程名称
 
     @NotBlank(message = "课程编号不能为空")
-    private String courseCode;
+        private String courseCode;   // 课程编号
 
-    private Long teacherId;
+        private Long teacherId;      // 授课教师 ID
 
     @NotNull(message = "学分不能为空")
-    private Integer credit;
+        private Integer credit;      // 学分
 
     @NotNull(message = "容量不能为空")
-    private Integer maxCapacity;
+        private Integer maxCapacity; // 最大容量
 
-    private String semester;
+        private String semester;     // 学期
 
-    private String schedule;
+        private String schedule;     // 上课时间
 
-    private String classroom;
+        private String classroom;    // 上课地点
 
-    private String description;
+        private String description;  // 课程描述
 }

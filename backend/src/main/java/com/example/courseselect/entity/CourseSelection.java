@@ -18,20 +18,20 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("t_course_selection")
+@TableName("t_course_selection") // 选课记录表
 public class CourseSelection {
-    @TableId(type = IdType.AUTO)
-    private Long id;
+        @TableId(type = IdType.AUTO) // 自增主键
+        private Long id;                   // 记录 ID
 
-    private Long studentId;
+        private Long studentId;            // 学生 ID
 
-    private Long courseId;
+        private Long courseId;             // 课程 ID
 
-    private Integer status;
+        private Integer status;            // 状态: 1在学习 2已退课 3已结课
 
-    private BigDecimal score;
+        private BigDecimal score;          // 成绩
 
-    private LocalDateTime selectTime;
+        private LocalDateTime selectTime;  // 选课时间
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

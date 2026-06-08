@@ -10,8 +10,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ScoreDTO {
-    private Long studentId;
-    private Long courseId;
-    private BigDecimal score;
+public class ScoreDTO { // 成绩传输对象
+        private Long studentId;    // 学生 ID
+        private Long courseId;     // 课程 ID
+        private BigDecimal score;  // 成绩分数
 }
