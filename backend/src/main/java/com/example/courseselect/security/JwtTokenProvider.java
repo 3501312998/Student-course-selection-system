@@ -1,5 +1,10 @@
 package com.example.courseselect.security;
 
+/**
+ * JWT 令牌工具类
+ * 负责生成、解析、校验 JWT 令牌，管理用户登录状态
+ */
+
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

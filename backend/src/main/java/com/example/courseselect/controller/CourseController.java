@@ -1,5 +1,10 @@
 package com.example.courseselect.controller;
 
+/**
+ * 课程查询控制器
+ * 提供课程列表查询、详情查看等功能（公开接口，无需登录）
+ */
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.courseselect.common.Result;
 import com.example.courseselect.entity.Course;

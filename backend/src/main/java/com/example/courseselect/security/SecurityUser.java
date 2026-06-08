@@ -1,5 +1,10 @@
 package com.example.courseselect.security;
 
+/**
+ * Spring Security 认证用户类
+ * 实现 UserDetails 接口，封装当前登录用户的认证信息
+ */
+
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

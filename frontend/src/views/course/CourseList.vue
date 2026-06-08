@@ -1,3 +1,4 @@
+<!-- 课程列表页（分页搜索 + 选课入口） -->
 <template>
   <div class="page-container">
     <div class="page-title">

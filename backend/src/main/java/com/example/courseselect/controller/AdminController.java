@@ -1,5 +1,10 @@
 package com.example.courseselect.controller;
 
+/**
+ * 管理员控制器
+ * 处理用户管理、课程查询管理等后台管理功能
+ */
+
 import com.example.courseselect.common.Result;
 import com.example.courseselect.entity.User;
 import com.example.courseselect.service.CourseSelectionService;

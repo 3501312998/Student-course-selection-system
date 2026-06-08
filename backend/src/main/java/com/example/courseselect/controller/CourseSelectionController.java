@@ -1,5 +1,10 @@
 package com.example.courseselect.controller;
 
+/**
+ * 选课操作控制器
+ * 处理学生的选课、退课、课表、成绩查询等请求
+ */
+
 import com.example.courseselect.common.Result;
 import com.example.courseselect.entity.User;
 import com.example.courseselect.security.SecurityUser;

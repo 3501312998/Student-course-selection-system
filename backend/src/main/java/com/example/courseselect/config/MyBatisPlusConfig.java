@@ -1,5 +1,10 @@
 package com.example.courseselect.config;
 
+/**
+ * MyBatis-Plus 配置
+ * 配置 MyBatis-Plus 分页插件和 Mapper 接口扫描路径
+ */
+
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;

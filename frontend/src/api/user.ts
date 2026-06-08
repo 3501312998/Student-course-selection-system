@@ -1,3 +1,5 @@
+// 用户认证 API
+// 封装登录、注册、获取用户信息、更新资料等后端接口调用
 import request from '@/utils/request'
 import type { ApiResult, LoginResponse, UserInfo } from '@/types'
 

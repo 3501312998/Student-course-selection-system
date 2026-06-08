@@ -1,3 +1,4 @@
+<!-- 管理员课程管理页（开关课程） -->
 <template>
   <div class="page-container">
     <div class="page-title">

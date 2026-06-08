@@ -1,3 +1,4 @@
+<!-- 教师课程管理页（新建/编辑课程） -->
 <template>
   <div class="page-container">
     <div class="page-title">

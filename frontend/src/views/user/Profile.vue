@@ -1,3 +1,4 @@
+<!-- 个人信息页面（含修改密码） -->
 <template>
   <div class="page-container">
     <el-card shadow="never">

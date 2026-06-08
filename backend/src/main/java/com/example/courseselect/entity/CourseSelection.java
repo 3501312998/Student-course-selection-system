@@ -1,5 +1,10 @@
 package com.example.courseselect.entity;
 
+/**
+ * 选课记录实体类
+ * 对应数据库 t_course_selection 表，记录学生选课信息及成绩
+ */
+
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

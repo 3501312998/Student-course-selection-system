@@ -1,3 +1,4 @@
+<!-- 我的课表页（学生查看已选课程） -->
 <template>
   <div class="page-container">
     <div class="page-title">

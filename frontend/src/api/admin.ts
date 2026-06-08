@@ -1,3 +1,5 @@
+// 管理员 API
+// 封装用户管理、课程管理等后台管理接口调用
 import request from '@/utils/request'
 import type { ApiResult, UserInfo } from '@/types'
 

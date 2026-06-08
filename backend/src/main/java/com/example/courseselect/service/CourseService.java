@@ -1,5 +1,10 @@
 package com.example.courseselect.service;
 
+/**
+ * 课程服务接口
+ * 定义课程增删改查、分页搜索、状态切换等业务方法
+ */
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.courseselect.dto.CourseDTO;
 import com.example.courseselect.entity.Course;

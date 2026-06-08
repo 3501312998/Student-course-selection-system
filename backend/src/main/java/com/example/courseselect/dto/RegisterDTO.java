@@ -1,5 +1,10 @@
 package com.example.courseselect.dto;
 
+/**
+ * 注册请求参数
+ * 封装用户注册时提交的各项信息，含参数校验规则
+ */
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

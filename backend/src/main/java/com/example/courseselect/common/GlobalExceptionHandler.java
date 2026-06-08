@@ -1,5 +1,10 @@
 package com.example.courseselect.common;
 
+/**
+ * 全局异常处理器
+ * 统一捕获并处理各类异常，转换为标准 Result 格式返回给前端
+ */
+
 import com.example.courseselect.exception.BusinessException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;

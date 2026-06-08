@@ -1,5 +1,10 @@
 package com.example.courseselect.service.impl;
 
+/**
+ * 课程服务实现类
+ * 实现课程的管理操作，包括分页搜索、创建、更新、删除等
+ */
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

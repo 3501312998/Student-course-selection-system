@@ -1,5 +1,10 @@
 package com.example.courseselect.controller;
 
+/**
+ * 认证控制器
+ * 处理用户登录、注册、个人信息管理请求（无需特殊角色）
+ */
+
 import com.example.courseselect.common.Result;
 import com.example.courseselect.dto.LoginDTO;
 import com.example.courseselect.dto.LoginResponse;

@@ -1,5 +1,10 @@
 package com.example.courseselect.dto;
 
+/**
+ * 课程传输对象
+ * 封装创建/更新课程时提交的课程信息，含参数校验规则
+ */
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

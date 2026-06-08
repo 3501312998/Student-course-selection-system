@@ -16,6 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Spring Security 安全配置
+ * 配置接口权限规则、JWT 无状态认证、密码加密策略
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity

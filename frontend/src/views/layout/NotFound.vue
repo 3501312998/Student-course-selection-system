@@ -1,3 +1,4 @@
+<!-- 404 页面 -->
 <template>
   <div class="not-found-page">
     <el-result icon="warning" title="404" sub-title="抱歉，页面不存在">

@@ -1,5 +1,10 @@
 package com.example.courseselect.security;
 
+/**
+ * JWT 认证过滤器
+ * 从请求头中提取 JWT 令牌并验证，将认证信息注入 Spring Security 上下文
+ */
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

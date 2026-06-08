@@ -1,3 +1,5 @@
+// 用户状态管理（Pinia Store）
+// 管理登录状态、用户信息、角色判断，提供登录/登出/刷新用户信息等操作方法
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { getCurrentUser } from '@/api/user'

@@ -1,5 +1,10 @@
 package com.example.courseselect.controller;
 
+/**
+ * 教师控制器
+ * 处理教师管理课程、查看学生名单、录入成绩等请求
+ */
+
 import com.example.courseselect.common.Result;
 import com.example.courseselect.dto.CourseDTO;
 import com.example.courseselect.entity.Course;

@@ -1,3 +1,5 @@
+// 路由配置
+// 定义所有前端页面路由，配置路由守卫实现登录拦截
 import { createRouter, createWebHistory } from 'vue-router'
 import { getToken } from '@/utils/storage'
 
@@ -63,6 +65,12 @@ const router = createRouter({
           name: 'CourseStudents',
           component: () => import('@/views/grade/ScoreEntry.vue'),
           meta: { title: '学生名单', roles: ['TEACHER'] },
+        },
+        {
+          path: 'teacher/grades',
+          name: 'TeacherGradeManage',
+          component: () => import('@/views/grade/TeacherGradeManage.vue'),
+          meta: { title: '成绩管理', roles: ['TEACHER'] },
         },
         {
           path: 'admin/users',

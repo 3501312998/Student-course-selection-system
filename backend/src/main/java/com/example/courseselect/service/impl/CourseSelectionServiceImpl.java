@@ -1,5 +1,10 @@
 package com.example.courseselect.service.impl;
 
+/**
+ * 选课服务实现类
+ * 实现选课、退课、课表、成绩等核心选课业务逻辑
+ */
+
 import com.example.courseselect.common.ResultCode;
 import com.example.courseselect.entity.Course;
 import com.example.courseselect.entity.CourseSelection;

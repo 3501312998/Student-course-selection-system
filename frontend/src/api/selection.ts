@@ -1,3 +1,5 @@
+// 选课 API
+// 封装选课、退课、课表、成绩、学生名单等后端接口调用
 import request from '@/utils/request'
 import type { ApiResult } from '@/types'
 

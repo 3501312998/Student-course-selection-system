@@ -1,3 +1,5 @@
+// Axios HTTP 请求封装
+// 配置请求拦截器（自动携带 JWT Token）和响应拦截器（统一错误处理）
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '@/router'

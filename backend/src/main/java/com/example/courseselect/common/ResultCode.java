@@ -1,5 +1,10 @@
 package com.example.courseselect.common;
 
+/**
+ * 响应状态码枚举
+ * 定义系统中使用的所有业务状态码及对应提示信息
+ */
+
 import lombok.Getter;
 
 @Getter

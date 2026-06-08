@@ -1,3 +1,4 @@
+<!-- 注册页面 -->
 <template>
   <div class="auth-page">
     <div class="auth-card">

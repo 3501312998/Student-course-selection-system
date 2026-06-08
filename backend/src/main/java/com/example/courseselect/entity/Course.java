@@ -1,5 +1,10 @@
 package com.example.courseselect.entity;
 
+/**
+ * 课程实体类
+ * 对应数据库 t_course 表，存储课程基本信息
+ */
+
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

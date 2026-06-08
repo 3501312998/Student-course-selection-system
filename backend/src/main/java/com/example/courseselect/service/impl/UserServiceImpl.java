@@ -1,5 +1,10 @@
 package com.example.courseselect.service.impl;
 
+/**
+ * 用户服务实现类
+ * 实现用户注册登录、信息管理、密码修改等核心业务逻辑
+ */
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.courseselect.common.ResultCode;
 import com.example.courseselect.dto.LoginDTO;

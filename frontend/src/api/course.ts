@@ -1,3 +1,5 @@
+// 课程 API
+// 封装课程列表查询、详情查看、创建更新等后端接口调用
 import request from '@/utils/request'
 import type { ApiResult, Course, PageResult } from '@/types'
 

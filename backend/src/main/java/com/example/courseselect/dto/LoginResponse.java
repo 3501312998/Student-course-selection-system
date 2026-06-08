@@ -1,5 +1,10 @@
 package com.example.courseselect.dto;
 
+/**
+ * 登录响应参数
+ * 封装登录成功后返回给前端的令牌和用户基本信息
+ */
+
 import lombok.Data;
 
 @Data

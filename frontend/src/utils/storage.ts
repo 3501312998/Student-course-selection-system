@@ -1,3 +1,5 @@
+// 本地存储工具函数
+// 封装 localStorage 操作，管理 Token 和用户信息的持久化
 // 本地存储工具
 
 const TOKEN_KEY = 'token'

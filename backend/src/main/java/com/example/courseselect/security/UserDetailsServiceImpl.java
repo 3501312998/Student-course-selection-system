@@ -1,5 +1,10 @@
 package com.example.courseselect.security;
 
+/**
+ * 用户详情加载服务
+ * Spring Security 认证时从数据库加载用户信息，构建 SecurityUser
+ */
+
 import com.example.courseselect.entity.User;
 import com.example.courseselect.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;

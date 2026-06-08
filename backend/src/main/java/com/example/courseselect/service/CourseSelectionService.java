@@ -1,5 +1,10 @@
 package com.example.courseselect.service;
 
+/**
+ * 选课服务接口
+ * 定义选课、退课、课表查询、成绩管理等业务方法
+ */
+
 import com.example.courseselect.entity.CourseSelection;
 
 import java.math.BigDecimal;

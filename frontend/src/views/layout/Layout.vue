@@ -1,3 +1,4 @@
+<!-- 主布局组件（导航栏 + 侧边菜单 + 内容区） -->
 <template>
   <div class="layout-container">
     <header class="layout-header">
@@ -42,10 +43,20 @@
           <span>成绩查询</span>
         </el-menu-item>
 
-        <el-menu-item v-if="userStore.isTeacher" index="/teacher-courses">
-          <el-icon><Edit /></el-icon>
-          <span>我的课程</span>
-        </el-menu-item>
+        <el-sub-menu v-if="userStore.isTeacher" index="teacher">
+          <template #title>
+            <el-icon><Edit /></el-icon>
+            <span>教学管理</span>
+          </template>
+          <el-menu-item index="/teacher-courses">
+            <el-icon><Document /></el-icon>
+            <span>我的课程</span>
+          </el-menu-item>
+          <el-menu-item index="/teacher/grades">
+            <el-icon><View /></el-icon>
+            <span>成绩管理</span>
+          </el-menu-item>
+        </el-sub-menu>
 
         <el-sub-menu v-if="userStore.isAdmin" index="admin">
           <template #title>

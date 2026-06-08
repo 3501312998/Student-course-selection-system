@@ -1,5 +1,10 @@
 package com.example.courseselect.service;
 
+/**
+ * 用户服务接口
+ * 定义用户注册、登录、信息更新、密码修改等业务方法
+ */
+
 import com.example.courseselect.dto.LoginDTO;
 import com.example.courseselect.dto.LoginResponse;
 import com.example.courseselect.dto.RegisterDTO;

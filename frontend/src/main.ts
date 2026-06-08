@@ -1,3 +1,5 @@
+// 应用入口
+// 创建 Vue 应用实例，注册 Pinia、Router、Element Plus 等插件
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'

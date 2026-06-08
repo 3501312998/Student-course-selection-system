@@ -1,3 +1,4 @@
+<!-- 课程详情页 -->
 <template>
   <div class="page-container">
     <el-card shadow="never" v-loading="loading">

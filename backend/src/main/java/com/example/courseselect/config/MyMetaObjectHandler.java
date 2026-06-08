@@ -1,5 +1,10 @@
 package com.example.courseselect.config;
 
+/**
+ * MyBatis-Plus 自动填充处理器
+ * 自动为实体类的 createTime、updateTime 字段注入当前时间
+ */
+
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;

@@ -1,3 +1,4 @@
+<!-- 成绩录入页（教师录入学生成绩） -->
 <template>
   <div class="page-container">
     <div class="page-title">

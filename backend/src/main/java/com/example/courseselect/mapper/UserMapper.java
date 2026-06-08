@@ -1,11 +1,22 @@
 package com.example.courseselect.mapper;
 
+/**
+ * 用户数据访问层
+ * 定义 User 实体的数据库操作接口，提供按用户名/学号查询
+ */
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.courseselect.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper extends BaseMapper<User> {
+
+    @Select("SELECT COUNT(*) FROM t_user WHERE deleted = 0")
+    long countAll();
+
+    @Select("SELECT COUNT(*) FROM t_user WHERE role = #{role} AND deleted = 0")
+    long countByRole(@Param("role") String role);
 
     @Select("SELECT * FROM t_user WHERE username = #{username} AND deleted = 0")
     User findByUsername(@Param("username") String username);

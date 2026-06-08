@@ -1,5 +1,10 @@
 package com.example.courseselect.common;
 
+/**
+ * 统一响应结果封装类
+ * 所有 API 接口统一使用该类返回，格式为 {code, message, data}
+ */
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

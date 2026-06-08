@@ -1,5 +1,10 @@
 package com.example.courseselect.entity;
 
+/**
+ * 用户实体类
+ * 对应数据库 t_user 表，存储系统用户（管理员/教师/学生）信息
+ */
+
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

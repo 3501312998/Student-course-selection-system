@@ -31,3 +31,9 @@ Thumbs.db
 
 # 日志
 *.log
+
+# 只保留 backend 和 frontend 两个目录推送
+/*
+!/.gitignore
+!/backend/
+!/frontend/
