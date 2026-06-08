@@ -35,5 +35,6 @@ Thumbs.db
 # 只保留 backend 和 frontend 两个目录推送
 /*
 !/.gitignore
+!/README.md
 !/backend/
 !/frontend/

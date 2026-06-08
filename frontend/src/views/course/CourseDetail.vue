@@ -24,8 +24,11 @@
       </el-descriptions>
 
       <div style="margin-top: 20px; text-align: center;" v-if="course">
+        <el-tag v-if="userStore.isStudent && isSelected" size="large" type="success" style="margin-bottom:8px;">
+          <el-icon><CircleCheck /></el-icon> 已选该课程
+        </el-tag>
         <el-button
-          v-if="userStore.isStudent && course.status === 1 && course.currentCount < course.maxCapacity"
+          v-if="userStore.isStudent && !isSelected && course.status === 1 && course.currentCount < course.maxCapacity"
           type="primary"
           size="large"
           @click="handleSelect"
@@ -33,7 +36,7 @@
           <el-icon><Plus /></el-icon> 选课
         </el-button>
         <el-button
-          v-if="userStore.isStudent"
+          v-if="userStore.isStudent && isSelected"
           size="large"
           @click="handleDrop"
         >
@@ -49,7 +52,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { getCourseDetail } from '@/api/course'
-import { selectCourse, dropCourse } from '@/api/selection'
+import { selectCourse, dropCourse, getMyCourses } from '@/api/selection'
 import { useUserStore } from '@/stores/user'
 import type { Course } from '@/types'
 
@@ -59,6 +62,7 @@ const userStore = useUserStore()
 
 const course = ref<Course | null>(null)
 const loading = ref(false)
+const isSelected = ref(false)
 
 onMounted(async () => {
   loading.value = true
@@ -67,6 +71,13 @@ onMounted(async () => {
     course.value = res.data
   } finally {
     loading.value = false
+  }
+  if (userStore.isStudent) {
+    try {
+      const myRes = await getMyCourses()
+      const list: any[] = myRes.data || []
+      isSelected.value = list.some((c: any) => c.id === Number(route.params.id))
+    } catch { /* handled */ }
   }
 })
 

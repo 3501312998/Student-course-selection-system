@@ -20,7 +20,7 @@
         </el-table-column>
         <el-table-column label="状态" width="100">
           <template #default="{ row }">
-            <el-tag v-if="row.status === 3" type="success">已结课</el-tag>
+            <el-tag v-if="row.score !== null && row.score !== undefined" type="success">已结课</el-tag>
             <el-tag v-else-if="row.status === 2" type="info">已退课</el-tag>
             <el-tag v-else type="warning">在学习</el-tag>
           </template>

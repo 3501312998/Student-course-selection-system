@@ -41,8 +41,9 @@
             <el-button size="small" type="primary" link @click="router.push(`/courses/${row.id}`)">
               <el-icon><View /></el-icon> 详情
             </el-button>
+            <el-tag v-if="isSelected(row.id)" size="small" type="success" style="margin-left:4px;">已选</el-tag>
             <el-button
-              v-if="userStore.isStudent && row.status === 1 && row.currentCount < row.maxCapacity"
+              v-else-if="userStore.isStudent && row.status === 1 && row.currentCount < row.maxCapacity"
               size="small"
               type="success"
               link
@@ -73,7 +74,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { getCourses } from '@/api/course'
-import { selectCourse } from '@/api/selection'
+import { selectCourse, getMyCourses } from '@/api/selection'
 import { useUserStore } from '@/stores/user'
 import type { Course } from '@/types'
 
@@ -86,8 +87,25 @@ const page = ref(1)
 const size = ref(10)
 const total = ref(0)
 const keyword = ref('')
+const selectedCourseIds = ref<Set<number>>(new Set())
 
-onMounted(() => loadCourses())
+function isSelected(courseId: number) {
+  return selectedCourseIds.value.has(courseId)
+}
+
+onMounted(async () => {
+  await loadSelectedIds()
+  await loadCourses()
+})
+
+async function loadSelectedIds() {
+  if (!userStore.isStudent) return
+  try {
+    const res = await getMyCourses()
+    const list: any[] = res.data || []
+    selectedCourseIds.value = new Set(list.map((c: any) => c.id))
+  } catch { /* handled */ }
+}
 
 async function loadCourses() {
   loading.value = true
